@@ -1,0 +1,114 @@
+import random
+import time
+
+class basikmon:
+    def __init__(self, name, description, stats):
+        self.name = name
+        self.description = description
+        self.stats = stats
+
+#List of Basikmon and their stats.
+basikmon_list = [
+    basikmon("Even Steven", "Decent at attacking and healing himself.", {"min_attack": 8, "max_attack": 12, "min_heal": 8, "max_health": 12, "base_health": 100}),
+    basikmon("The Smasher", "Loves to destroy things, doesn't care if he gets hurt.", {"min_attack": 12, "max_attack": 20, "min_heal": 3, "max_health": 6, "base_health": 75}),
+    basikmon("Turtle Bro", "Very defensive, doesn't like being hurt.", {"min_attack": 6, "max_attack": 8, "min_heal": 10, "max_health": 15, "base_health": 150}),
+
+]
+
+print ("Welcome to Basikmon, a Risk-Reward strategy game that is 1000% original")
+print ("")
+print ("Press enter to begin.")
+input()
+
+print ("Select your Basikmon:")
+print ("-------------------")
+
+#Code to show different Basikmon
+
+def selectBasikmon():
+    choice_list = ["Even Steven", "The Smasher", "Turtle Bro"]
+    counter = 0
+    options_count = len(choice_list)
+    while counter < options_count:
+        time.sleep(1)
+        print ("(" + str(counter + 1) + ")")
+        print (basikmon_list[counter].name)
+        print (basikmon_list[counter].description)
+        print ("--------------")
+        counter = counter + 1
+        time.sleep(1)
+    
+    basikmon_selected = False
+    print ("Choose your Basikmon!")
+    print ("")
+    while not basikmon_selected:
+        selected_basikmon = input()
+        if isinstance(selected_basikmon, str):
+            if selected_basikmon in choice_list:
+                print ("You selected the " + selected_basikmon)
+                basikmon_selected = True
+                break
+            
+        if selected_basikmon.isdigit():
+            selected_basikmon = int(selected_basikmon)
+            if selected_basikmon > 0 and selected_basikmon < options_count + 1:
+                print ("You selected the " + basikmon_list[selected_basikmon - 1].name)
+                basikmon_selected = True
+                break
+        
+        print ("That is not a valid option")
+    
+    return selected_basikmon
+
+#Code to run the game
+
+def play_match(opponent1,opponent2):
+    
+    player1 = opponent1
+    player2 = opponent2
+    
+    print (player1 + " Versus " + player2)
+    
+    #code for the actual match goes here, will probably be very complex and will take a while.
+
+
+
+#code for Almanac
+def openAlmanac():
+    name_list = ["Even Steven", "The Smasher", "Turtle Bro"]
+    counter = 0
+    basikmon_count = len(basikmon_list)
+    while counter < basikmon_count:
+        time.sleep(1)
+        print ("(" + str(counter + 1) + ")")
+        print (basikmon_list[counter].name)
+        print (basikmon_list[counter].description)
+        print ("")
+        stats = basikmon_list[counter].stats
+        for key, value in stats.items():
+            print(key + ": " + str(value))
+
+        print ("--------------")
+        counter = counter + 1
+
+
+
+selectedBasikmon = selectBasikmon()
+
+#Menu Loop
+while True:
+    print ("")
+    print ("Type FIGHT to start a match, INFO to view more details about basikmon and SWITCH to change Basikmon")
+    menu_choice = input()
+    
+    if menu_choice == "FIGHT":
+        play_match(selectedBasikmon,basikmon_list[random.randint(0,2)].name)
+    
+    if menu_choice == "INFO":
+        print ("")
+        openAlmanac()
+
+    if menu_choice == "SWITCH":
+        print ("")
+        selectedBasikmon = selectBasikmon()
+
